@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Materi Belajar TKJ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{--bg:#f2f5f7;--surface:#fff;--ink:#16222c;--muted:#566471;--line:#d5dde3;--accent:#2f6fde;--accent-ink:#fff;--code:#e9eef2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f161c;--surface:#17212a;--ink:#e8eef2;--muted:#9aa8b4;--line:#2a3743;--accent:#6c9cff;--accent-ink:#0f161c;--code:#1f2b35}}
+:root[data-theme="dark"]{--bg:#0f161c;--surface:#17212a;--ink:#e8eef2;--muted:#9aa8b4;--line:#2a3743;--accent:#6c9cff;--accent-ink:#0f161c;--code:#1f2b35}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;line-height:1.15;margin:0}
+header{padding:36px 0 22px}
+h1{font-size:clamp(2rem,8vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+header p{color:var(--muted);margin:12px 0 0;max-width:46ch}
+.wires{display:flex;gap:6px;height:56px;margin:26px 0 0}
+.w{flex:1;border-radius:3px;background:var(--c)}
+.w.s{background:repeating-linear-gradient(135deg,#fff 0 5px,var(--c) 5px 10px)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;padding-top:10px;padding-bottom:10px;overflow-x:auto}
+nav button{flex:1 0 auto;font:500 .95rem "IBM Plex Sans",system-ui,sans-serif;padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{padding:22px 0 56px}
+section[hidden]{display:none}
+section>h2{font-size:1.6rem;margin-bottom:6px}
+.lead{color:var(--muted);margin:0 0 18px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:0 0 10px}
+summary{cursor:pointer;padding:14px 16px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--muted);font-size:1.3rem;line-height:1}
+details[open]>summary::after{content:"\2212"}
+.body{padding:0 16px 16px}
+.body p{margin:0 0 10px}.body ul,.body ol{margin:0 0 10px;padding-left:20px}.body li{margin:4px 0}
+code{background:var(--code);padding:1px 6px;border-radius:5px;font-size:.9em}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:6px 0 12px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+.scroll{overflow-x:auto}
+pre{background:var(--code);padding:10px 12px;border-radius:8px;overflow-x:auto;font-size:.82rem;line-height:1.5;margin:0 0 10px}pre code{background:none;padding:0}
+.pins{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;margin:6px 0 12px}
+.pins b{font-weight:500;color:var(--muted)}
+.row{display:flex;gap:4px}
+.row .w{height:26px;border-radius:2px}
+.calc label{display:block;font-weight:500;margin:10px 0 4px}
+.calc input{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.calc .two{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.calc button{margin-top:12px;font:500 1rem "IBM Plex Sans",system-ui,sans-serif;padding:10px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+#out{margin-top:12px;font-size:.95rem}
+#out dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}
+#out dt{color:var(--muted)}#out dd{margin:0;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+.err{color:#c0392b}
+footer{color:var(--muted);font-size:.85rem;padding:0 0 28px}
+@media (prefers-reduced-motion:no-preference){.wires .w{animation:grow .7s ease-out both}.wires .w:nth-child(2){animation-delay:.05s}.wires .w:nth-child(3){animation-delay:.1s}.wires .w:nth-child(4){animation-delay:.15s}.wires .w:nth-child(5){animation-delay:.2s}.wires .w:nth-child(6){animation-delay:.25s}.wires .w:nth-child(7){animation-delay:.3s}.wires .w:nth-child(8){animation-delay:.35s}}
+@keyframes grow{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Materi Belajar Teknik Komputer dan Jaringan</h1>
+<p>Delapan bab dasar untuk siswa SMK TKJ: dari merakit PC sampai membuat script otomatisasi. Dibuat oleh Lugina Damarres.</p>
+<div class="wires" id="hero" aria-hidden="true"></div>
+</div></header>
+
+<nav><div class="wrap" role="tablist" aria-label="Pilih bab">
+<button role="tab" aria-selected="true" data-t="b1">Bab 1 Komputer</button>
+<button role="tab" aria-selected="false" data-t="b2">Bab 2 Jaringan</button>
+<button role="tab" aria-selected="false" data-t="b3">Bab 3 IP</button>
+<button role="tab" aria-selected="false" data-t="b4">Bab 4 MikroTik</button>
+<button role="tab" aria-selected="false" data-t="b5">Bab 5 Server</button>
+<button role="tab" aria-selected="false" data-t="b6">Bab 6 Kabel</button>
+<button role="tab" aria-selected="false" data-t="b7">Bab 7 Keamanan</button>
+<button role="tab" aria-selected="false" data-t="b8">Bab 8 Coding</button>
+</div></nav>
+
+<main><div class="wrap">
+
+<section id="b1">
+<h2>Dasar Komputer dan Perakitan PC</h2>
+<p class="lead">Kenali komponennya, rakit sendiri, lalu pasang sistem operasinya.</p>
+<details open><summary>Mengenal komponen utama</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Komponen</th><th>Fungsi</th></tr>
+<tr><td>CPU</td><td>Otak komputer, memproses instruksi program.</td></tr>
+<tr><td>RAM</td><td>Memori sementara untuk data yang sedang dipakai. Isinya hilang saat komputer mati.</td></tr>
+<tr><td>Motherboard</td><td>Papan induk tempat semua komponen terhubung.</td></tr>
+<tr><td>SSD</td><td>Penyimpanan permanen tanpa bagian bergerak, jauh lebih cepat dari HDD.</td></tr>
+<tr><td>PSU</td><td>Mengubah listrik AC dari stopkontak menjadi DC untuk komponen.</td></tr>
+</table></div></div></details>
+<details><summary>Merakit dan membongkar komputer</summary><div class="body">
+<p>Pakai gelang antistatik atau sentuh logam casing dulu untuk membuang listrik statis. Urutan merakit:</p>
+<ol>
+<li>Pasang CPU ke soket. Sejajarkan tanda segitiga di CPU dengan di soket.</li>
+<li>Oleskan pasta termal tipis, lalu pasang heatsink dan kipas.</li>
+<li>Pasang RAM sampai kedua pengaitnya berbunyi klik.</li>
+<li>Pasang SSD (slot M.2 atau kabel SATA).</li>
+<li>Pasang motherboard ke casing dengan standoff dan baut.</li>
+<li>Pasang PSU, sambungkan kabel 24-pin ke motherboard dan kabel CPU 4/8-pin.</li>
+<li>Sambungkan kabel panel depan (power, reset, USB, audio).</li>
+<li>Hubungkan monitor, keyboard, lalu nyalakan untuk tes.</li>
+</ol>
+<p>Membongkar berarti mengulang langkah di atas dari belakang, dan cabut kabel listrik lebih dulu.</p>
+</div></details>
+<details><summary>Instalasi Windows dan Linux</summary><div class="body">
+<ol>
+<li>Buat flashdisk bootable dengan Rufus atau Ventoy dari file ISO.</li>
+<li>Masuk BIOS/UEFI (biasanya tekan <code>Del</code>, <code>F2</code>, atau <code>F12</code>) dan pilih flashdisk sebagai boot pertama.</li>
+<li>Ikuti installer: pilih bahasa, partisi, lalu tunggu proses salin file.</li>
+<li>Setelah restart, pasang driver dan update sistem.</li>
+</ol>
+<p>Windows memakai installer grafis dan butuh lisensi. Linux (misalnya Ubuntu atau Debian) gratis dan bisa dicoba dulu lewat mode Live sebelum diinstal.</p>
+</div></details>
+<details><summary>Mengatasi masalah hardware dan software</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Gejala</th><th>Cek dulu</th></tr>
+<tr><td>Tidak menyala sama sekali</td><td>Kabel power, saklar PSU, kabel panel depan.</td></tr>
+<tr><td>Bunyi beep berulang</td><td>Pasang ulang RAM, bersihkan kontaknya.</td></tr>
+<tr><td>Menyala tapi layar kosong</td><td>Kabel monitor, RAM, kartu grafis.</td></tr>
+<tr><td>Lambat</td><td>Ruang penyimpanan penuh, program startup, virus.</td></tr>
+<tr><td>Tidak ada internet</td><td>Kabel LAN, driver jaringan, pengaturan IP.</td></tr>
+</table></div>
+<p>Aturan dasarnya: ubah satu hal setiap kali mencoba, supaya tahu penyebab yang sebenarnya.</p>
+</div></details>
+<details><summary>Cara kerja komputer dan satuan data</summary><div class="body">
+<p>Semua komputer bekerja dengan alur yang sama: <b>input</b> (data masuk lewat keyboard, mouse, mikrofon), <b>proses</b> (CPU mengolah, RAM menampung sementara), <b>output</b> (hasil tampil di monitor atau keluar di speaker, printer), dan <b>penyimpanan</b> (file disimpan di SSD atau HDD).</p>
+<p>Komputer hanya mengerti dua keadaan: 0 dan 1, disebut bit. Satuan yang perlu dihafal:</p>
+<ul>
+<li>1 byte = 8 bit</li>
+<li>1 KB = 1024 byte, 1 MB = 1024 KB, 1 GB = 1024 MB, 1 TB = 1024 GB</li>
+</ul>
+<p>Hati-hati membedakan <b>B</b> (byte) dan <b>b</b> (bit). Kecepatan internet biasanya dalam bit per detik (Mbps), sedangkan ukuran file dalam byte. Jadi 100 Mbps kira-kira 12,5 MB per detik.</p>
+</div></details>
+<details><summary>Komponen pendukung, port, dan BIOS/UEFI</summary><div class="body">
+<ul>
+<li><b>GPU</b> (kartu grafis): mengolah gambar dan video. Ada yang menyatu dengan CPU (integrated), ada yang terpisah (dedicated).</li>
+<li><b>Heatsink dan kipas</b>: membuang panas CPU. Pasta termal mengisi celah kecil antara CPU dan heatsink supaya panas mengalir lancar.</li>
+<li><b>Casing</b>: rumah komponen, juga mengatur aliran udara.</li>
+</ul>
+<div class="scroll"><table>
+<tr><th></th><th>HDD</th><th>SSD</th></tr>
+<tr><td>Cara kerja</td><td>Piringan magnetik berputar</td><td>Chip memori, tanpa bagian bergerak</td></tr>
+<tr><td>Kecepatan</td><td>Lebih lambat</td><td>Jauh lebih cepat</td></tr>
+<tr><td>Ketahanan guncangan</td><td>Rentan</td><td>Lebih tahan</td></tr>
+<tr><td>Harga per GB</td><td>Lebih murah</td><td>Lebih mahal</td></tr>
+</table></div>
+<p>Port yang sering ditemui: <b>USB</b> (perangkat umum), <b>HDMI</b> dan <b>DisplayPort</b> (video digital), <b>VGA</b> (video analog, perangkat lama), <b>RJ45</b> (kabel LAN), dan jack audio.</p>
+<p><b>BIOS/UEFI</b> adalah program kecil di motherboard yang pertama jalan saat komputer dinyalakan. Tugasnya memeriksa hardware lalu memulai booting sistem operasi. Di sini kamu juga mengatur urutan boot, jam, dan mode penyimpanan.</p>
+</div></details>
+<details><summary>Latihan soal Bab 1</summary><div class="body">
+<ol>
+<li>Komponen apa yang isinya hilang saat komputer dimatikan?</li>
+<li>Untuk apa pasta termal dipakai?</li>
+<li>PC menyala tapi layar kosong. Sebutkan tiga hal yang kamu cek lebih dulu.</li>
+<li>Apa tugas BIOS/UEFI?</li>
+<li>Berapa MB per detik kira-kira kecepatan 80 Mbps?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>RAM.</li>
+<li>Menghantarkan panas dari CPU ke heatsink.</li>
+<li>Kabel monitor, pemasangan RAM, dan kartu grafis.</li>
+<li>Memeriksa hardware saat awal menyala dan memulai booting sistem operasi.</li>
+<li>80 dibagi 8 = 10 MB per detik.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b2" hidden>
+<h2>Dasar-Dasar Jaringan Komputer</h2>
+<p class="lead">Jenis jaringan, bentuk hubungannya, dan perangkat yang dipakai.</p>
+<details open><summary>LAN, MAN, WAN, dan WLAN</summary><div class="body">
+<ul>
+<li><b>LAN</b>: jaringan area terbatas, seperti satu ruangan, lab, atau gedung.</li>
+<li><b>MAN</b>: mencakup satu kota atau kawasan luas.</li>
+<li><b>WAN</b>: menghubungkan jaringan antarkota atau antarnegara. Internet adalah WAN terbesar.</li>
+<li><b>WLAN</b>: LAN tanpa kabel, atau yang kita kenal sebagai Wi-Fi.</li>
+</ul></div></details>
+<details><summary>Topologi jaringan</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Topologi</th><th>Bentuk</th><th>Catatan</th></tr>
+<tr><td>Star</td><td>Semua perangkat ke satu switch pusat.</td><td>Paling umum, mudah mencari gangguan. Switch mati, semua putus.</td></tr>
+<tr><td>Bus</td><td>Satu kabel utama dipakai bersama.</td><td>Murah, tapi kabel utama putus berarti semua terganggu.</td></tr>
+<tr><td>Ring</td><td>Perangkat tersambung melingkar.</td><td>Data berputar satu arah, satu titik putus bisa mengganggu seluruh cincin.</td></tr>
+<tr><td>Mesh</td><td>Setiap perangkat terhubung ke banyak perangkat lain.</td><td>Sangat andal, tapi mahal dan rumit.</td></tr>
+</table></div></div></details>
+<details><summary>Membuat kabel LAN straight dan crossover</summary><div class="body">
+<p>Alat: kabel UTP, konektor RJ45, crimping tool, dan LAN tester. Urutan warna pin 1 sampai 8:</p>
+<p><b>T568B</b></p><div class="pins" id="pb"></div>
+<p><b>T568A</b></p><div class="pins" id="pa"></div>
+<ul>
+<li><b>Straight</b>: kedua ujung T568B. Dipakai untuk perangkat berbeda jenis, misalnya PC ke switch.</li>
+<li><b>Crossover</b>: satu ujung T568B, ujung lain T568A. Dipakai untuk perangkat sejenis, misalnya PC ke PC.</li>
+</ul>
+<p>Perangkat modern umumnya punya Auto MDI-X sehingga kabel straight sudah cukup untuk hampir semua kasus.</p>
+</div></details>
+<details><summary>Switch, router, dan access point</summary><div class="body">
+<ul>
+<li><b>Switch</b>: menghubungkan perangkat dalam satu jaringan dan meneruskan data berdasarkan MAC address.</li>
+<li><b>Router</b>: menghubungkan jaringan yang berbeda, misalnya jaringan sekolah ke internet, berdasarkan IP address.</li>
+<li><b>Access point</b>: memancarkan sinyal Wi-Fi dari jaringan kabel supaya perangkat nirkabel bisa terhubung.</li>
+</ul></div></details>
+<details><summary>Model OSI dan TCP/IP</summary><div class="body">
+<p>Model OSI membagi proses komunikasi data menjadi 7 lapisan. Dari atas ke bawah:</p>
+<div class="scroll"><table>
+<tr><th>Lapisan</th><th>Tugas</th><th>Contoh</th></tr>
+<tr><td>7 Application</td><td>Layanan yang dipakai pengguna</td><td>HTTP, DNS, SMTP</td></tr>
+<tr><td>6 Presentation</td><td>Format dan enkripsi data</td><td>JPEG, TLS</td></tr>
+<tr><td>5 Session</td><td>Membuka dan menutup sesi</td><td>Sesi login</td></tr>
+<tr><td>4 Transport</td><td>Pengiriman antar-aplikasi</td><td>TCP, UDP</td></tr>
+<tr><td>3 Network</td><td>Pengalamatan dan rute</td><td>IP, router</td></tr>
+<tr><td>2 Data Link</td><td>Pengiriman antar-perangkat satu jaringan</td><td>MAC address, switch</td></tr>
+<tr><td>1 Physical</td><td>Sinyal di media</td><td>Kabel, hub, Wi-Fi</td></tr>
+</table></div>
+<p>Pengingat urutan dari atas: <i>All People Seem To Need Data Processing</i>. Dalam praktik, internet memakai model TCP/IP yang lebih ringkas, yaitu 4 lapisan: Application, Transport, Internet, dan Network Access.</p>
+<p><b>TCP</b> menjamin data sampai lengkap dan berurutan (dipakai web dan email). <b>UDP</b> lebih cepat tapi tanpa jaminan (dipakai video call dan game).</p>
+</div></details>
+<details><summary>Protokol dan nomor port yang umum</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Layanan</th><th>Port</th><th>Fungsi</th></tr>
+<tr><td>HTTP</td><td>80</td><td>Web biasa</td></tr>
+<tr><td>HTTPS</td><td>443</td><td>Web terenkripsi</td></tr>
+<tr><td>FTP</td><td>21</td><td>Transfer file</td></tr>
+<tr><td>SSH</td><td>22</td><td>Remote aman lewat teks</td></tr>
+<tr><td>Telnet</td><td>23</td><td>Remote tanpa enkripsi (tidak disarankan)</td></tr>
+<tr><td>SMTP</td><td>25</td><td>Kirim email</td></tr>
+<tr><td>DNS</td><td>53</td><td>Terjemahan nama domain</td></tr>
+<tr><td>DHCP</td><td>67 dan 68</td><td>Pembagian IP otomatis</td></tr>
+</table></div>
+<p>Nomor port ini akan sering muncul saat kamu mengatur firewall di Bab 4 dan 7.</p>
+</div></details>
+<details><summary>Perintah dasar untuk mengecek jaringan</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Tujuan</th><th>Windows</th><th>Linux</th></tr>
+<tr><td>Lihat IP</td><td><code>ipconfig /all</code></td><td><code>ip a</code></td></tr>
+<tr><td>Tes koneksi</td><td><code>ping 8.8.8.8</code></td><td><code>ping -c 4 8.8.8.8</code></td></tr>
+<tr><td>Lihat jalur paket</td><td><code>tracert google.com</code></td><td><code>traceroute google.com</code></td></tr>
+<tr><td>Cek DNS</td><td><code>nslookup google.com</code></td><td><code>dig google.com</code></td></tr>
+<tr><td>Lihat koneksi aktif</td><td><code>netstat -an</code></td><td><code>ss -tuln</code></td></tr>
+</table></div>
+<p>Kebiasaan baik: kalau internet mati, ping dari yang terdekat (gateway) ke yang terjauh (8.8.8.8, lalu nama domain). Hasilnya menunjukkan di mana masalahnya.</p>
+</div></details>
+<details><summary>Latihan soal Bab 2</summary><div class="body">
+<ol>
+<li>Topologi apa yang paling umum dipakai sekarang, dan apa kelemahannya?</li>
+<li>Sebutkan perbedaan switch dan router.</li>
+<li>Router bekerja di lapisan OSI nomor berapa?</li>
+<li>Kabel apa untuk menghubungkan dua PC langsung pada perangkat lama?</li>
+<li>Apa beda TCP dan UDP?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>Star. Kelemahannya, kalau switch pusat mati, seluruh jaringan terputus.</li>
+<li>Switch menghubungkan perangkat dalam satu jaringan memakai MAC address. Router menghubungkan jaringan yang berbeda memakai IP address.</li>
+<li>Lapisan 3 (Network).</li>
+<li>Kabel crossover (satu ujung T568B, ujung lain T568A).</li>
+<li>TCP menjamin data sampai lengkap dan berurutan. UDP lebih cepat tapi tanpa jaminan.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b3" hidden>
+<h2>IP Addressing dan Subnetting</h2>
+<p class="lead">Cara perangkat saling menemukan, dan cara membagi jaringan.</p>
+<details open><summary>IPv4 dan IPv6</summary><div class="body">
+<ul>
+<li><b>IPv4</b>: 32 bit, ditulis 4 angka desimal (0 sampai 255) dipisah titik, contoh <code>192.168.1.10</code>. Jumlahnya terbatas sekitar 4,3 miliar.</li>
+<li><b>IPv6</b>: 128 bit, ditulis heksadesimal dipisah titik dua, contoh <code>2001:db8::1</code>. Jumlahnya hampir tak terbatas.</li>
+</ul></div></details>
+<details><summary>IP address, subnet mask, gateway, dan DNS</summary><div class="body">
+<ul>
+<li><b>IP address</b>: alamat unik perangkat di jaringan.</li>
+<li><b>Subnet mask</b>: pembeda bagian network dan bagian host dari IP, contoh <code>255.255.255.0</code> (ditulis juga <code>/24</code>).</li>
+<li><b>Gateway</b>: pintu keluar ke jaringan lain, biasanya IP router.</li>
+<li><b>DNS</b>: menerjemahkan nama domain (google.com) menjadi IP address.</li>
+</ul></div></details>
+<details><summary>Menghitung subnetting</summary><div class="body">
+<p>Rumus jumlah host per subnet: <code>2^(32 - prefix) - 2</code>. Dikurangi 2 karena alamat pertama untuk network dan terakhir untuk broadcast.</p>
+<p>Contoh <code>192.168.1.0/26</code>: mask <code>255.255.255.192</code>, tiap subnet punya 2^6 - 2 = 62 host, ukuran blok 64. Subnetnya mulai dari .0, .64, .128, dan .192.</p>
+<p>Coba hitung sendiri:</p>
+<div class="calc">
+<div class="two">
+<div><label for="ip">IP address</label><input id="ip" value="192.168.1.77" inputmode="decimal" autocomplete="off"></div>
+<div><label for="pf">Prefix</label><input id="pf" value="26" inputmode="numeric" autocomplete="off"></div>
+</div>
+<button id="go" type="button">Hitung</button>
+<div id="out" aria-live="polite"></div>
+</div></div></details>
+<details><summary>DHCP dan konfigurasi IP statis</summary><div class="body">
+<ul>
+<li><b>DHCP</b>: server yang membagikan IP, mask, gateway, dan DNS secara otomatis. Cocok untuk laptop dan HP.</li>
+<li><b>IP statis</b>: diatur manual. Cocok untuk server, printer, dan router karena alamatnya tidak boleh berubah.</li>
+</ul>
+<p>Contoh IP statis satu jaringan:</p>
+<ul><li>IP: <code>192.168.1.10</code></li><li>Mask: <code>255.255.255.0</code></li><li>Gateway: <code>192.168.1.1</code></li><li>DNS: <code>8.8.8.8</code></li></ul>
+</div></details>
+<details><summary>Praktik di Cisco Packet Tracer</summary><div class="body">
+<ol>
+<li>Tambahkan 1 switch dan 2 PC ke area kerja.</li>
+<li>Hubungkan PC ke switch dengan kabel Copper Straight-Through.</li>
+<li>Klik PC, buka <b>Desktop &gt; IP Configuration</b>, isi IP statis: PC0 <code>192.168.1.10</code> dan PC1 <code>192.168.1.11</code>, mask <code>255.255.255.0</code>.</li>
+<li>Buka <b>Command Prompt</b> di PC0 dan jalankan <code>ping 192.168.1.11</code>.</li>
+<li>Balasan "Reply from" berarti jaringanmu berhasil.</li>
+</ol></div></details>
+<details><summary>Kelas IP, IP privat, dan IP publik</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Kelas</th><th>Oktet pertama</th><th>Mask bawaan</th></tr>
+<tr><td>A</td><td>1 sampai 126</td><td>/8 (255.0.0.0)</td></tr>
+<tr><td>B</td><td>128 sampai 191</td><td>/16 (255.255.0.0)</td></tr>
+<tr><td>C</td><td>192 sampai 223</td><td>/24 (255.255.255.0)</td></tr>
+</table></div>
+<p>Alamat 127.x.x.x khusus untuk komputer sendiri (loopback), misalnya <code>127.0.0.1</code>.</p>
+<p><b>IP privat</b> dipakai di dalam jaringan lokal dan tidak dikenal di internet:</p>
+<ul>
+<li><code>10.0.0.0</code> sampai <code>10.255.255.255</code></li>
+<li><code>172.16.0.0</code> sampai <code>172.31.255.255</code></li>
+<li><code>192.168.0.0</code> sampai <code>192.168.255.255</code></li>
+</ul>
+<p>Alamat lain adalah <b>IP publik</b>, dibagikan oleh ISP. Kalau komputer tidak mendapat IP dari DHCP, Windows memberi alamat darurat <code>169.254.x.x</code> (APIPA). Jika melihat alamat ini, berarti DHCP tidak terjangkau.</p>
+</div></details>
+<details><summary>Mengubah biner dan desimal</summary><div class="body">
+<p>Setiap oktet IP terdiri dari 8 bit dengan nilai posisi:</p>
+<pre><code>128  64  32  16  8  4  2  1</code></pre>
+<p>Jumlahkan nilai posisi yang bernilai 1. Contoh:</p>
+<ul>
+<li>192 = 128 + 64 = <code>11000000</code></li>
+<li>168 = 128 + 32 + 8 = <code>10101000</code></li>
+<li>224 = 128 + 64 + 32 = <code>11100000</code></li>
+</ul>
+<p>Subnet mask selalu berisi angka 1 berurutan lalu 0. Prefix /26 berarti 26 bit pertama bernilai 1:</p>
+<pre><code>11111111.11111111.11111111.11000000
+= 255.255.255.192</code></pre>
+</div></details>
+<details><summary>Contoh subnetting langkah demi langkah</summary><div class="body">
+<p><b>Soal:</b> bagi jaringan <code>192.168.5.0/24</code> menjadi 8 subnet sama besar.</p>
+<ol>
+<li>8 subnet = 2^3, jadi pinjam 3 bit dari bagian host. Prefix baru: 24 + 3 = <b>/27</b>.</li>
+<li>Mask baru: <code>255.255.255.224</code> (11100000 = 224).</li>
+<li>Ukuran blok: 256 - 224 = <b>32</b>. Subnet mulai dari .0, .32, .64, dan seterusnya.</li>
+<li>Host per subnet: 2^5 - 2 = <b>30</b>.</li>
+</ol>
+<div class="scroll"><table>
+<tr><th>Subnet</th><th>Network</th><th>Rentang host</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>.0</td><td>.1 sampai .30</td><td>.31</td></tr>
+<tr><td>2</td><td>.32</td><td>.33 sampai .62</td><td>.63</td></tr>
+<tr><td>3</td><td>.64</td><td>.65 sampai .94</td><td>.95</td></tr>
+<tr><td>...</td><td colspan="3">dan seterusnya dengan selisih 32</td></tr>
+<tr><td>8</td><td>.224</td><td>.225 sampai .254</td><td>.255</td></tr>
+</table></div>
+<p>Rumusnya: network = alamat pertama blok, broadcast = alamat terakhir blok, host = di antara keduanya. Cek hasilmu dengan kalkulator di atas.</p>
+</div></details>
+<details><summary>Latihan soal Bab 3</summary><div class="body">
+<ol>
+<li>Berapa host yang bisa dipakai pada jaringan /24?</li>
+<li>Tuliskan subnet mask untuk prefix /27.</li>
+<li>IP <code>192.168.1.130/26</code> berada di subnet mana? Berapa broadcast-nya?</li>
+<li>Apa yang terjadi kalau dua perangkat memakai IP yang sama?</li>
+<li>PC bisa ping gateway tapi tidak bisa ping 8.8.8.8. Apa yang dicurigai?</li>
+<li>Apa arti IP <code>169.254.10.5</code> di sebuah PC?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>2^8 - 2 = 254 host.</li>
+<li>255.255.255.224.</li>
+<li>Blok /26 berukuran 64: 0, 64, 128, 192. Angka 130 masuk blok .128, jadi network <code>192.168.1.128</code> dan broadcast <code>192.168.1.191</code>.</li>
+<li>Terjadi konflik IP. Perangkat bisa putus-putus atau tidak bisa terhubung.</li>
+<li>Masalah ada di router, NAT, atau koneksi ISP, bukan di kabel atau IP PC.</li>
+<li>PC tidak mendapat IP dari DHCP dan memakai alamat darurat (APIPA).</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b4" hidden>
+<h2>Konfigurasi Router dan MikroTik</h2>
+<p class="lead">Perintah RouterOS lewat Terminal atau WinBox. Sesuaikan nama interface (di sini ether1 = internet, ether2 = LAN).</p>
+<details open><summary>IP address dan gateway</summary><div class="body">
+<pre><code>/ip address add address=192.168.1.2/24 interface=ether1
+/ip address add address=192.168.10.1/24 interface=ether2
+/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1
+/ip dns set servers=8.8.8.8 allow-remote-requests=yes</code></pre>
+<p>Baris ketiga adalah default gateway ke arah internet. Kalau internet dari ISP otomatis, pakai <code>/ip dhcp-client add interface=ether1 disabled=no</code>.</p>
+</div></details>
+<details><summary>Routing statis</summary><div class="body">
+<p>Memberi tahu router cara mencapai jaringan lain lewat router tetangga:</p>
+<pre><code>/ip route add dst-address=10.10.10.0/24 gateway=192.168.1.254</code></pre>
+<p>Artinya: untuk tujuan 10.10.10.0/24, kirim paket lewat 192.168.1.254. Cek dengan <code>/ip route print</code>.</p>
+</div></details>
+<details><summary>DHCP Server</summary><div class="body">
+<pre><code>/ip pool add name=pool-lan ranges=192.168.10.10-192.168.10.200
+/ip dhcp-server add name=dhcp-lan interface=ether2 address-pool=pool-lan disabled=no
+/ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1 dns-server=192.168.10.1</code></pre>
+<p>Klien di ether2 kini mendapat IP, gateway, dan DNS otomatis. Lihat daftarnya di <code>/ip dhcp-server lease print</code>.</p>
+</div></details>
+<details><summary>NAT agar klien bisa ke internet</summary><div class="body">
+<pre><code>/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade</code></pre>
+<p>NAT masquerade mengganti IP privat klien (192.168.10.x) dengan IP publik router saat keluar ke internet. Tanpa aturan ini, klien bisa ping router tapi tidak bisa membuka internet.</p>
+</div></details>
+<details><summary>Firewall dasar dan manajemen bandwidth</summary><div class="body">
+<pre><code>/ip firewall filter
+add chain=input connection-state=established,related action=accept
+add chain=input connection-state=invalid action=drop
+add chain=input in-interface=ether1 action=drop</code></pre>
+<p>Urutan penting: aturan dibaca dari atas. Aturan terakhir memblokir akses ke router dari sisi internet, jadi pastikan kamu mengelola router lewat LAN.</p>
+<p>Membatasi bandwidth satu klien dengan Simple Queue (format upload/download):</p>
+<pre><code>/queue simple add name=limit-pc1 target=192.168.10.50/32 max-limit=2M/5M</code></pre>
+</div></details>
+<details><summary>Mengenal RouterOS, WinBox, dan perintah dasar</summary><div class="body">
+<p>MikroTik memakai sistem operasi <b>RouterOS</b>. Ada tiga cara mengaksesnya: <b>WinBox</b> (aplikasi grafis, bisa terhubung lewat MAC address saat router belum punya IP), <b>WebFig</b> (lewat browser), dan <b>Terminal</b> atau SSH (perintah teks).</p>
+<p>Router MikroTik baru umumnya punya konfigurasi bawaan dengan IP <code>192.168.88.1</code>, user <code>admin</code>, dan password kosong atau sesuai stiker di router. Ganti password sebelum dipakai.</p>
+<div class="scroll"><table>
+<tr><th>Tujuan</th><th>Perintah</th></tr>
+<tr><td>Lihat interface</td><td><code>/interface print</code></td></tr>
+<tr><td>Lihat IP address</td><td><code>/ip address print</code></td></tr>
+<tr><td>Beri nama router</td><td><code>/system identity set name=R-Lab</code></td></tr>
+<tr><td>Backup konfigurasi</td><td><code>/system backup save name=backup1</code></td></tr>
+<tr><td>Ekspor konfigurasi (teks)</td><td><code>/export file=konfig</code></td></tr>
+<tr><td>Reset ke kosong</td><td><code>/system reset-configuration no-defaults=yes</code></td></tr>
+</table></div>
+<p>Tips Terminal: tekan <code>Tab</code> untuk melengkapi perintah dan <code>?</code> untuk melihat pilihan.</p>
+</div></details>
+<details><summary>Urutan konfigurasi router untuk jaringan sekolah</summary><div class="body">
+<ol>
+<li>Pastikan router mendapat internet di port WAN (ether1), lalu tes <code>/ping 8.8.8.8</code>.</li>
+<li>Beri IP pada port LAN (ether2).</li>
+<li>Atur DNS router.</li>
+<li>Aktifkan NAT masquerade.</li>
+<li>Buat DHCP server untuk LAN.</li>
+<li>Tes dari komputer klien: dapat IP, bisa ping gateway, bisa ping 8.8.8.8, bisa membuka situs.</li>
+<li>Pasang firewall dasar dan batasi bandwidth bila perlu.</li>
+<li>Terakhir, simpan backup konfigurasi.</li>
+</ol>
+<p>Kerjakan satu langkah, tes, baru lanjut. Kalau gagal, kamu langsung tahu langkah mana penyebabnya.</p>
+</div></details>
+<details><summary>Troubleshooting dan latihan soal Bab 4</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Gejala</th><th>Cek</th></tr>
+<tr><td>Klien tidak dapat IP</td><td>DHCP server aktif di interface yang benar, pool belum habis.</td></tr>
+<tr><td>Dapat IP tapi tidak bisa internet</td><td>NAT masquerade, default route, DNS.</td></tr>
+<tr><td>Router sendiri tidak bisa ping 8.8.8.8</td><td>Sisi WAN: kabel, IP, gateway, ISP.</td></tr>
+<tr><td>Bisa ping IP tapi tidak bisa buka situs</td><td>DNS (<code>allow-remote-requests</code> belum aktif).</td></tr>
+</table></div>
+<ol>
+<li>Apa fungsi NAT masquerade?</li>
+<li>Apa arti <code>0.0.0.0/0</code> pada rute?</li>
+<li>Apa bedanya <code>/export</code> dan <code>/system backup save</code>?</li>
+<li>Kenapa urutan aturan firewall penting?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>Mengganti IP privat klien dengan IP publik router saat keluar ke internet.</li>
+<li>Rute default: semua tujuan yang tidak ada di tabel dikirim ke gateway itu.</li>
+<li><code>/export</code> menghasilkan file teks yang bisa dibaca dan disalin. Backup adalah file biner untuk dikembalikan ke router.</li>
+<li>Aturan dibaca dari atas ke bawah dan berhenti di aturan pertama yang cocok.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b5" hidden>
+<h2>Administrasi Sistem dan Server</h2>
+<p class="lead">Menyiapkan server dan layanan yang dipakai jaringan sehari-hari.</p>
+<details open><summary>Instalasi Linux Server dan Windows Server</summary><div class="body">
+<ul>
+<li><b>Linux Server</b> (Ubuntu Server atau Debian): biasanya tanpa tampilan grafis, dikelola lewat terminal dan SSH. Saat instalasi atur hostname, IP statis, dan buat user.</li>
+<li><b>Windows Server</b>: punya tampilan grafis. Layanan ditambah lewat <b>Server Manager &gt; Add Roles and Features</b>.</li>
+</ul>
+<p>Setelah instalasi, update sistem dan catat IP server.</p>
+</div></details>
+<details><summary>Konfigurasi web server</summary><div class="body">
+<pre><code>sudo apt update
+sudo apt install apache2
+sudo systemctl status apache2</code></pre>
+<p>Folder halaman webnya <code>/var/www/html</code>. Buka <code>http://IP-server</code> dari browser klien untuk mengetes. Alternatifnya Nginx. Di Windows Server, web server memakai role <b>IIS</b>.</p>
+</div></details>
+<details><summary>DNS Server dan DHCP Server</summary><div class="body">
+<p><b>DNS</b> di Linux memakai BIND9 (<code>sudo apt install bind9</code>): kamu membuat zona, lalu mencatat nama seperti <code>web.sekolah.local</code> mengarah ke IP server. Di Windows Server, pakai role DNS Server.</p>
+<p><b>DHCP</b> di Linux memakai <code>isc-dhcp-server</code>. Isi dasar <code>/etc/dhcp/dhcpd.conf</code>:</p>
+<pre><code>subnet 192.168.10.0 netmask 255.255.255.0 {
+  range 192.168.10.100 192.168.10.200;
+  option routers 192.168.10.1;
+  option domain-name-servers 192.168.10.2;
+}</code></pre>
+<p>Jangan jalankan dua DHCP server di jaringan yang sama, nanti klien mendapat IP bentrok.</p>
+</div></details>
+<details><summary>File server dan user management</summary><div class="body">
+<p>Di Linux, berbagi folder ke Windows memakai Samba:</p>
+<pre><code>sudo apt install samba
+sudo adduser budi
+sudo smbpasswd -a budi
+sudo usermod -aG guru budi
+sudo chmod 770 /data/guru</code></pre>
+<p>Perintah itu membuat user, memberi password Samba, memasukkannya ke grup, dan membatasi folder hanya untuk pemilik dan grup. Di Windows Server, bagikan folder lewat <b>Share</b> dan atur izin NTFS per user atau grup. Prinsipnya sama: beri hak sesuai kebutuhan saja.</p>
+</div></details>
+<details><summary>Virtualisasi dengan VirtualBox atau VMware</summary><div class="body">
+<p>Virtualisasi menjalankan beberapa komputer virtual (guest) di satu komputer asli (host). Cocok untuk latihan server tanpa perangkat tambahan.</p>
+<ol>
+<li>Buat VM baru, pilih file ISO sistem operasi.</li>
+<li>Atur RAM, jumlah CPU, dan ukuran disk virtual.</li>
+<li>Pilih mode jaringan, lalu instal seperti biasa.</li>
+</ol>
+<div class="scroll"><table>
+<tr><th>Mode jaringan</th><th>Fungsi</th></tr>
+<tr><td>NAT</td><td>VM bisa ke internet, tapi tidak mudah diakses dari luar.</td></tr>
+<tr><td>Bridged</td><td>VM dapat IP di jaringan yang sama dengan host.</td></tr>
+<tr><td>Host-only</td><td>VM hanya berkomunikasi dengan host.</td></tr>
+<tr><td>Internal</td><td>VM hanya berkomunikasi dengan sesama VM.</td></tr>
+</table></div></div></details>
+<details><summary>Perintah dasar Linux dan hak akses file</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Perintah</th><th>Fungsi</th></tr>
+<tr><td><code>pwd</code>, <code>ls</code>, <code>cd</code></td><td>Lihat lokasi, isi folder, pindah folder</td></tr>
+<tr><td><code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>rm</code></td><td>Buat folder, salin, pindah, hapus</td></tr>
+<tr><td><code>cat</code>, <code>nano</code></td><td>Lihat dan edit file teks</td></tr>
+<tr><td><code>sudo</code></td><td>Jalankan sebagai administrator</td></tr>
+<tr><td><code>apt install</code></td><td>Pasang paket (Debian/Ubuntu)</td></tr>
+</table></div>
+<p>Hak akses file terdiri dari tiga kelompok (pemilik, grup, lainnya), masing-masing berisi <b>r</b> (baca, 4), <b>w</b> (tulis, 2), <b>x</b> (jalankan, 1). Contoh:</p>
+<ul>
+<li><code>chmod 755</code> = rwxr-xr-x: pemilik penuh, yang lain hanya baca dan jalankan.</li>
+<li><code>chmod 770</code> = rwxrwx---: pemilik dan grup penuh, yang lain tidak boleh.</li>
+</ul>
+<p>Hati-hati dengan <code>rm -r</code>: file yang dihapus tidak masuk tempat sampah.</p>
+</div></details>
+<details><summary>Mengelola layanan dan praktik web server</summary><div class="body">
+<pre><code>sudo systemctl start apache2
+sudo systemctl stop apache2
+sudo systemctl restart apache2
+sudo systemctl enable apache2
+sudo systemctl status apache2</code></pre>
+<p><code>enable</code> membuat layanan otomatis jalan saat server dinyalakan. Kalau layanan bermasalah, lihat lognya: <code>sudo journalctl -u apache2</code>.</p>
+<p><b>Praktik singkat:</b></p>
+<ol>
+<li>Pasang Apache, pastikan statusnya <i>active (running)</i>.</li>
+<li>Edit halaman: <code>sudo nano /var/www/html/index.html</code>, isi dengan HTML sederhana.</li>
+<li>Dari komputer klien, buka <code>http://IP-server</code>.</li>
+<li>Kalau tidak muncul, cek IP server, firewall (port 80), dan status layanan.</li>
+</ol>
+</div></details>
+<details><summary>Latihan soal Bab 5</summary><div class="body">
+<ol>
+<li>Apa bedanya <code>systemctl start</code> dan <code>systemctl enable</code>?</li>
+<li>Apa arti <code>chmod 750</code>?</li>
+<li>Mode jaringan VirtualBox apa yang membuat VM mendapat IP satu jaringan dengan host?</li>
+<li>Kenapa tidak boleh ada dua DHCP server dalam satu jaringan?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li><code>start</code> menjalankan layanan sekarang. <code>enable</code> membuatnya jalan otomatis setiap boot.</li>
+<li>Pemilik rwx (7), grup r-x (5), lainnya tidak punya akses (0).</li>
+<li>Bridged.</li>
+<li>Klien bisa menerima IP dari keduanya, sehingga bisa terjadi IP bentrok atau gateway salah.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b6" hidden>
+<h2>Teknologi Jaringan Kabel dan Fiber Optik</h2>
+<p class="lead">Memilih media, memasang konektor, dan mengujinya.</p>
+<details open><summary>Kabel UTP dan fiber optik</summary><div class="body">
+<ul>
+<li><b>UTP</b>: kabel tembaga berisi 4 pasang kabel, membawa sinyal listrik. Maksimal 100 meter per segmen. Cat5e untuk 1 Gbps, Cat6 untuk 1 Gbps (10 Gbps sampai sekitar 55 meter), Cat6a untuk 10 Gbps sampai 100 meter.</li>
+<li><b>Fiber optik</b>: serat kaca yang membawa cahaya. Jaraknya jauh, kecepatannya tinggi, dan kebal gangguan listrik.</li>
+</ul>
+<div class="scroll"><table>
+<tr><th>Jenis fiber</th><th>Ciri</th></tr>
+<tr><td>Single-mode</td><td>Inti sangat kecil (sekitar 9 mikron), laser, jarak puluhan kilometer.</td></tr>
+<tr><td>Multi-mode</td><td>Inti lebih besar (50 atau 62,5 mikron), jarak pendek, cocok antargedung dan di dalam gedung.</td></tr>
+</table></div></div></details>
+<details><summary>Konektor RJ45 dan konektor fiber</summary><div class="body">
+<ul>
+<li><b>RJ45</b>: konektor 8 pin untuk kabel UTP.</li>
+<li><b>SC</b>: persegi, dipasang dengan didorong (push-pull).</li>
+<li><b>LC</b>: versi kecil dari SC, umum di modul SFP.</li>
+<li><b>ST</b>: bulat dengan kunci putar bayonet.</li>
+<li><b>FC</b>: bulat dengan ulir sekrup.</li>
+</ul></div></details>
+<details><summary>Teknik pemasangan dan pengujian</summary><div class="body">
+<p><b>UTP:</b></p>
+<ol>
+<li>Kupas jaket kabel sekitar 2 sampai 3 cm.</li>
+<li>Urutkan kabel sesuai T568B, rapikan, potong rata.</li>
+<li>Masukkan ke RJ45 sampai ujung kabel terlihat di ujung konektor.</li>
+<li>Jepit dengan crimping tool, lalu uji dengan LAN tester. Lampu 1 sampai 8 harus menyala berurutan.</li>
+</ol>
+<p><b>Fiber:</b> disambung dengan fusion splicer atau dipasang konektor, memakai alat cleaver dan stripper. Pengujian dengan VFL (senter merah untuk melihat patahan), power meter, dan OTDR untuk mengukur panjang serta titik gangguan.</p>
+<p>Keselamatan: jangan melihat langsung ujung fiber yang sedang menyala, dan buang serpihan kaca di wadah khusus.</p>
+</div></details>
+<details><summary>Dasar jaringan nirkabel dan Wi-Fi</summary><div class="body">
+<p>Wi-Fi memakai standar IEEE 802.11. Dua pita frekuensi utama:</p>
+<div class="scroll"><table>
+<tr><th>Pita</th><th>Ciri</th></tr>
+<tr><td>2,4 GHz</td><td>Jangkauan luas, lebih mudah menembus dinding, tapi ramai dan rawan interferensi. Kanal yang tidak saling tumpang tindih: 1, 6, 11.</td></tr>
+<tr><td>5 GHz</td><td>Lebih cepat dan lebih sepi, tapi jangkauan lebih pendek.</td></tr>
+</table></div>
+<p>Generasi umum: 802.11n (Wi-Fi 4), ac (Wi-Fi 5), dan ax (Wi-Fi 6).</p>
+<ul>
+<li>Atur SSID dan keamanan WPA2 atau WPA3. Hindari jaringan terbuka dan WEP.</li>
+<li>Letakkan access point di tengah area, agak tinggi, jauh dari dinding tebal dan microwave.</li>
+</ul></div></details>
+<details><summary>Alat kerja dan instalasi kabel terstruktur</summary><div class="body">
+<ul>
+<li><b>Crimping tool</b>: menjepit konektor RJ45 ke kabel.</li>
+<li><b>Cable stripper</b>: mengupas jaket kabel tanpa melukai kabel di dalamnya.</li>
+<li><b>LAN tester</b>: memeriksa 8 jalur kabel.</li>
+<li><b>Punch-down tool</b>: menekan kabel ke patch panel atau keystone jack.</li>
+</ul>
+<p>Pada gedung besar, kabel dipasang secara terstruktur: kabel dari ruangan (outlet di dinding) ditarik ke <b>patch panel</b> di rak (rack), lalu dihubungkan ke switch memakai <b>patch cord</b> pendek. Dengan begitu perpindahan atau perbaikan cukup dilakukan di rak, tanpa menarik kabel baru.</p>
+<p>Tips pemasangan: jangan menekuk kabel terlalu tajam, jauhkan dari kabel listrik, beri label di kedua ujung, dan sisakan panjang cadangan.</p>
+</div></details>
+<details><summary>Kekuatan sinyal Wi-Fi dan masalah umum</summary><div class="body">
+<p>Kekuatan sinyal diukur dalam <b>dBm</b>, nilainya negatif. Makin mendekati nol, makin kuat:</p>
+<div class="scroll"><table>
+<tr><th>Sinyal</th><th>Kualitas</th></tr>
+<tr><td>-50 dBm atau lebih kuat</td><td>Sangat baik</td></tr>
+<tr><td>-60 sampai -70 dBm</td><td>Cukup baik</td></tr>
+<tr><td>-80 dBm atau lebih lemah</td><td>Sering putus</td></tr>
+</table></div>
+<p>Penyebab Wi-Fi lambat atau putus: jarak terlalu jauh, dinding tebal, kanal bertabrakan dengan Wi-Fi tetangga, terlalu banyak perangkat, atau interferensi dari microwave dan Bluetooth. Gunakan aplikasi Wi-Fi analyzer untuk melihat kanal mana yang sepi, lalu pindahkan access point ke kanal itu.</p>
+<p>Menyembunyikan SSID dan filter MAC address bukan pengamanan yang kuat. Yang utama tetap WPA2 atau WPA3 dengan password panjang.</p>
+</div></details>
+<details><summary>Latihan soal Bab 6</summary><div class="body">
+<ol>
+<li>Berapa panjang maksimal satu segmen kabel UTP?</li>
+<li>Apa perbedaan single-mode dan multi-mode?</li>
+<li>Alat apa untuk mengecek kabel LAN yang baru dicrimping?</li>
+<li>Kanal 2,4 GHz apa saja yang tidak saling tumpang tindih?</li>
+<li>Mana sinyal yang lebih baik: -55 dBm atau -80 dBm?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>100 meter.</li>
+<li>Single-mode berinti kecil, memakai laser, untuk jarak jauh. Multi-mode berinti lebih besar untuk jarak pendek.</li>
+<li>LAN tester.</li>
+<li>Kanal 1, 6, dan 11.</li>
+<li>-55 dBm.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b7" hidden>
+<h2>Keamanan Jaringan</h2>
+<p class="lead">Melindungi perangkat, akun, dan data, lalu tahu cara mencari tahu kalau ada yang salah.</p>
+<details open><summary>Firewall dan kontrol akses</summary><div class="body">
+<p>Firewall menyaring lalu lintas berdasarkan aturan. Prinsipnya: blokir semua dulu, lalu izinkan hanya yang dibutuhkan. Contoh di Linux dengan UFW:</p>
+<pre><code>sudo ufw default deny incoming
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw enable</code></pre>
+<p>Izinkan port SSH (22) sebelum <code>enable</code>, supaya kamu tidak terkunci dari server sendiri. Kontrol akses juga berarti memisahkan jaringan, misalnya Wi-Fi tamu dipisah dari jaringan kantor atau lab (segmentasi atau VLAN).</p>
+</div></details>
+<details><summary>Mengamankan router dan server</summary><div class="body">
+<ul>
+<li>Ganti password bawaan dan buat user admin sendiri, lalu nonaktifkan user default.</li>
+<li>Matikan layanan yang tidak dipakai. Di MikroTik: <code>/ip service disable telnet,ftp,www</code></li>
+<li>Batasi akses manajemen hanya dari LAN: <code>/ip service set winbox address=192.168.10.0/24</code></li>
+<li>Di server, pakai SSH dengan kunci (key) dan set <code>PermitRootLogin no</code> di <code>/etc/ssh/sshd_config</code>.</li>
+<li>Update firmware RouterOS dan paket server secara berkala.</li>
+<li>Simpan backup konfigurasi di tempat terpisah.</li>
+</ul></div></details>
+<details><summary>Password kuat dan pengelolaan hak akses</summary><div class="body">
+<ul>
+<li>Pakai password panjang (minimal 12 karakter), misalnya kalimat acak yang mudah kamu ingat.</li>
+<li>Satu akun satu password. Simpan di password manager dan aktifkan verifikasi dua langkah bila ada.</li>
+<li><b>Least privilege</b>: beri hak akses sekecil yang dibutuhkan pekerjaannya.</li>
+<li>Pisahkan akun admin dari akun harian, tinjau daftar user berkala, dan hapus akun yang sudah tidak dipakai.</li>
+</ul></div></details>
+<details><summary>Mendeteksi dan mengatasi gangguan jaringan</summary><div class="body">
+<p>Cari penyebab dari dekat ke jauh:</p>
+<div class="scroll"><table>
+<tr><th>Tes</th><th>Kalau gagal, curigai</th></tr>
+<tr><td><code>ping 127.0.0.1</code></td><td>Pengaturan jaringan di perangkat itu sendiri.</td></tr>
+<tr><td>Ping IP gateway</td><td>Kabel, switch, atau IP/mask yang salah.</td></tr>
+<tr><td><code>ping 8.8.8.8</code></td><td>Router, NAT, atau koneksi ISP.</td></tr>
+<tr><td><code>ping google.com</code></td><td>DNS.</td></tr>
+</table></div>
+<p>Alat bantu: <code>traceroute</code>, <code>ipconfig</code> atau <code>ip a</code>, log (<code>/log print</code> di MikroTik, <code>journalctl</code> di Linux), dan Wireshark untuk melihat isi lalu lintas.</p>
+<p>Tanda gangguan keamanan: banyak login gagal, trafik melonjak tanpa sebab, atau ada perangkat asing di daftar DHCP. Penanganannya: isolasi perangkat, ganti password, tutup celah (update atau aturan firewall), lalu catat kejadiannya.</p>
+</div></details>
+<details><summary>Jenis ancaman umum dan pencegahannya</summary><div class="body">
+<div class="scroll"><table>
+<tr><th>Ancaman</th><th>Penjelasan</th><th>Pencegahan</th></tr>
+<tr><td>Malware</td><td>Program berbahaya (virus, ransomware).</td><td>Antivirus, update, jangan pasang software bajakan.</td></tr>
+<tr><td>Phishing</td><td>Pesan atau situs palsu untuk mencuri password.</td><td>Periksa alamat pengirim dan URL, jangan klik tautan mencurigakan.</td></tr>
+<tr><td>Brute force</td><td>Menebak password berulang kali.</td><td>Password panjang, batasi percobaan login.</td></tr>
+<tr><td>DoS/DDoS</td><td>Membanjiri layanan dengan permintaan sampai tidak bisa melayani.</td><td>Firewall, pembatasan koneksi, layanan perlindungan dari ISP.</td></tr>
+<tr><td>Sniffing / MITM</td><td>Menyadap atau menyusup di antara dua pihak.</td><td>Pakai HTTPS dan SSH, hindari Wi-Fi terbuka.</td></tr>
+</table></div>
+</div></details>
+<details><summary>Checklist keamanan dasar dan backup</summary><div class="body">
+<ul>
+<li>Update sistem dan firmware secara rutin.</li>
+<li>Matikan layanan dan port yang tidak dipakai.</li>
+<li>Pakai SSH, bukan Telnet.</li>
+<li>Aktifkan log dan baca sesekali.</li>
+<li>Batasi hak akses sesuai kebutuhan (least privilege).</li>
+</ul>
+<p>Aturan backup <b>3-2-1</b>: simpan 3 salinan data, di 2 jenis media berbeda, dan 1 salinan di tempat lain. Backup yang belum pernah dicoba dikembalikan belum bisa dianggap aman, jadi uji sesekali.</p>
+</div></details>
+<details><summary>Latihan soal Bab 7</summary><div class="body">
+<ol>
+<li>Apa prinsip firewall "default deny"?</li>
+<li>Kenapa Telnet tidak disarankan?</li>
+<li>Apa itu least privilege?</li>
+<li>Kamu melihat perangkat asing di daftar DHCP lease. Apa langkahmu?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>Semua lalu lintas diblokir, lalu hanya yang dibutuhkan diizinkan.</li>
+<li>Data, termasuk password, dikirim tanpa enkripsi sehingga mudah disadap. Pakai SSH.</li>
+<li>Memberi akses sekecil yang dibutuhkan untuk menyelesaikan pekerjaan.</li>
+<li>Cek MAC address dan identitas perangkat itu, blokir atau putuskan bila tidak dikenal, lalu ganti password Wi-Fi dan password router.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+<section id="b8" hidden>
+<h2>Pemrograman dan Otomatisasi Dasar</h2>
+<p class="lead">Dasar kode yang berguna untuk mengerjakan tugas admin lebih cepat.</p>
+<details open><summary>Dasar Python</summary><div class="body">
+<pre><code>nama = "Budi"
+umur = 16
+if umur &gt;= 17:
+    print(nama, "sudah boleh punya KTP")
+else:
+    print(nama, "belum")
+
+for i in range(1, 4):
+    print("Perangkat", i)
+
+def luas(p, l):
+    return p * l
+
+print(luas(4, 5))</code></pre>
+<p>Python memakai indentasi (spasi di awal baris) untuk menandai blok kode, jadi rapikan spasinya.</p>
+</div></details>
+<details><summary>HTML dan CSS</summary><div class="body">
+<p>HTML menyusun isi halaman, CSS mengatur tampilannya.</p>
+<pre><code>&lt;h1 class="judul"&gt;Halo TKJ&lt;/h1&gt;
+&lt;p&gt;Ini halaman pertamaku.&lt;/p&gt;
+
+&lt;style&gt;
+.judul { color: royalblue; }
+&lt;/style&gt;</code></pre>
+<p>Simpan sebagai <code>index.html</code> lalu buka di browser.</p>
+</div></details>
+<details><summary>Dasar database dan SQL</summary><div class="body">
+<p>Database menyimpan data dalam tabel (baris dan kolom). SQL adalah bahasa untuk mengelolanya. Contoh daftar perangkat:</p>
+<pre><code>CREATE TABLE perangkat (id INTEGER PRIMARY KEY, nama TEXT, ip TEXT);
+INSERT INTO perangkat (nama, ip) VALUES ('Router', '192.168.1.1');
+SELECT * FROM perangkat WHERE ip LIKE '192.168.1.%';
+UPDATE perangkat SET nama = 'Router Utama' WHERE id = 1;
+DELETE FROM perangkat WHERE id = 1;</code></pre>
+<p>Untuk latihan, SQLite sudah cukup: ringan dan tidak butuh server.</p>
+</div></details>
+<details><summary>Script sederhana untuk admin jaringan</summary><div class="body">
+<p>Mengecek perangkat mana yang aktif di jaringan sendiri:</p>
+<pre><code>import subprocess
+
+for i in range(1, 11):
+    ip = f"192.168.1.{i}"
+    hasil = subprocess.run(["ping", "-c", "1", "-W", "1", ip],
+                           capture_output=True)
+    print(ip, "hidup" if hasil.returncode == 0 else "tidak merespons")</code></pre>
+<p>Di Windows, ganti <code>-c</code> dengan <code>-n</code> dan hapus <code>-W 1</code>. Pakai hanya di jaringan milikmu. Ide script lain: backup konfigurasi router berkala, atau mencatat hasil ping ke database SQL.</p>
+</div></details>
+<details><summary>Python lebih lanjut: tipe data, list, dan dictionary</summary><div class="body">
+<p>Tipe data dasar: <code>str</code> (teks), <code>int</code> (bilangan bulat), <code>float</code> (desimal), <code>bool</code> (True atau False).</p>
+<pre><code>perangkat = ["Router", "Switch", "AP"]      # list
+perangkat.append("Server")
+print(len(perangkat))                      # 4
+
+ip = {"Router": "192.168.1.1",
+      "Server": "192.168.1.10"}            # dictionary
+print(ip["Server"])
+
+nama = input("Nama perangkat: ")
+try:
+    jumlah = int(input("Jumlah: "))
+except ValueError:
+    print("Isi dengan angka")</code></pre>
+<p>List menyimpan urutan data, dictionary menyimpan pasangan kunci dan nilai. <code>try/except</code> menangkap kesalahan supaya program tidak berhenti mendadak.</p>
+</div></details>
+<details><summary>Menghitung subnet dengan Python</summary><div class="body">
+<p>Python punya modul <code>ipaddress</code> yang membantu memeriksa hasil subnettingmu:</p>
+<pre><code>import ipaddress
+
+net = ipaddress.ip_network("192.168.1.0/26")
+print(net.netmask)               # 255.255.255.192
+print(net.num_addresses - 2)     # 62
+print(net.broadcast_address)     # 192.168.1.63
+
+for host in list(net.hosts())[:3]:
+    print(host)</code></pre>
+<p>Ganti prefix atau alamatnya dan bandingkan dengan hitungan manualmu.</p>
+</div></details>
+<details><summary>Latihan soal Bab 8</summary><div class="body">
+<ol>
+<li>Apa bedanya list dan dictionary?</li>
+<li>Apa fungsi HTML dan CSS?</li>
+<li>Tulis perintah SQL untuk menampilkan semua perangkat yang namanya "Router".</li>
+<li>Kenapa Python butuh indentasi yang rapi?</li>
+</ol>
+<details><summary>Kunci jawaban</summary><div class="body"><ol>
+<li>List menyimpan data berurutan dan diakses lewat nomor urut. Dictionary menyimpan pasangan kunci dan nilai.</li>
+<li>HTML menyusun isi halaman, CSS mengatur tampilannya.</li>
+<li><code>SELECT * FROM perangkat WHERE nama = 'Router';</code></li>
+<li>Python memakai indentasi untuk menandai blok kode, jadi spasi yang salah mengubah arti atau menimbulkan error.</li>
+</ol></div></details>
+</div></details>
+</section>
+
+</div></main>
+<footer><div class="wrap">Materi dasar TKJ. Dibuat oleh Lugina Damarres. Selamat belajar.</div></footer>
+
+<script>
+(function(){
+var B=[["#fff","#e8772e",1],["#e8772e","#e8772e"],["#fff","#3e9b5b",1],["#2f6fde","#2f6fde"],["#fff","#2f6fde",1],["#3e9b5b","#3e9b5b"],["#fff","#8a5a3c",1],["#8a5a3c","#8a5a3c"]];
+var A=[B[2],B[4-3+2-2+3-3+0+0] ,B[0],B[3],B[4],B[1],B[6],B[7]];
+A=[B[2],B[5],B[0],B[3],B[4],B[1],B[6],B[7]];
+var N=["Putih-oranye","Oranye","Putih-hijau","Biru","Putih-biru","Hijau","Putih-coklat","Coklat"];
+var NA=["Putih-hijau","Hijau","Putih-oranye","Biru","Putih-biru","Oranye","Putih-coklat","Coklat"];
+function wire(x){return '<span class="w'+(x[2]?' s':'')+'" style="--c:'+x[1]+'"></span>'}
+document.getElementById("hero").innerHTML=B.map(wire).join("");
+function pins(id,arr,names){document.getElementById(id).innerHTML=arr.map(function(x,i){return '<b>Pin '+(i+1)+'</b><span class="row" style="align-items:center">'+wire(x)+'<span style="margin-left:10px;flex:none;width:auto">'+names[i]+'</span></span>'}).join("")}
+pins("pb",B,N);pins("pa",A,NA);
+var tabs=document.querySelectorAll("nav button");
+tabs.forEach(function(b){b.addEventListener("click",function(){
+tabs.forEach(function(x){x.setAttribute("aria-selected",x===b)});
+["b1","b2","b3","b4","b5","b6","b7","b8"].forEach(function(id){document.getElementById(id).hidden=(id!==b.dataset.t)});
+window.scrollTo(0,0)})});
+function s(n){return [n>>>24&255,n>>>16&255,n>>>8&255,n&255].join(".")}
+document.getElementById("go").addEventListener("click",function(){
+var o=document.getElementById("out"),p=document.getElementById("ip").value.trim().split("."),f=Number(document.getElementById("pf").value);
+var ok=p.length===4&&p.every(function(x){return /^\d{1,3}$/.test(x)&&+x<=255})&&Number.isInteger(f)&&f>=0&&f<=32;
+if(!ok){o.innerHTML='<span class="err">Isi IPv4 yang benar (contoh 192.168.1.77) dan prefix 0 sampai 32.</span>';return}
+var ip=((+p[0]<<24)|(+p[1]<<16)|(+p[2]<<8)|+p[3])>>>0,m=f===0?0:(0xFFFFFFFF<<(32-f))>>>0,net=(ip&m)>>>0,bc=(net|(~m>>>0))>>>0;
+var h=f>=31?(f===32?1:2):Math.pow(2,32-f)-2,r=f>=31?s(net)+" - "+s(bc):s(net+1)+" - "+s(bc-1);
+o.innerHTML="<dl><dt>Subnet mask</dt><dd>"+s(m)+"</dd><dt>Network</dt><dd>"+s(net)+"</dd><dt>Broadcast</dt><dd>"+s(bc)+"</dd><dt>Rentang host</dt><dd>"+r+"</dd><dt>Jumlah host</dt><dd>"+h+"</dd></dl>"});
+})();
+</script>
+</body>
+</html>
